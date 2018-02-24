@@ -98,6 +98,7 @@ $movies = array(
                   }
 
 
+echo "<br/> <br/><b> LE TEST </b><br />";
 
 
 function render_movie_list($listedefilms,$genre,$nbannees){
