@@ -60,6 +60,8 @@ include "Movie.class.php";
 
 	echo " <a href = \"movies.php\"> 	<br> Revenir à la page des Films.</a>"; 
 
+	echo " <a href = \"Formulaire.php\"> 	<br> Faire une recherche.</a>"; 
+
     ?> 
 
 

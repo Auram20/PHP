@@ -79,6 +79,9 @@ include "Genre.class.php";
 
 	echo " <a href = \"casts.php\"> 	Revenir à la page des Casts.</a>"; 
 
+
+	echo " <a href = \"Formulaire.php\"> <br>	Faire une recherche.</a>"; 
+
     ?> 
 
 
