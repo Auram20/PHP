@@ -75,6 +75,11 @@ class Movie {
 		return $this->idCountry;
 	}
 
+
+
+
+	
+	
 	/*******************GETTERS COMPLEXES*******************/
 
 	/**
