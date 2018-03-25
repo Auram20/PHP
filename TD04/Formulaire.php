@@ -28,25 +28,24 @@
 
 <p class="c" >MOVIE RESEARCH </p>
 <br/>
-<form action="Movie.php" method="post">
+
+<form action="moviesearch.php" method="POST">
 <p>
 	Title : 
     <input type="text" name="title" /><br>
     Released between  :  
-    <input type="date" name "date1" />
+    <input type="date" name="date1" value="1920-01-01"/>
     And : 
-    <input type="date" name "date2" /><br>
-
-  Genre : <br>
-				<input type ="checkbox" name ="action" value = "action">Action<br>
-				<input type ="checkbox" name="animation" value = "animation">Animation<br>
-				<input type ="checkbox" name ="adventure" value = "adventure">Adventure<br>
-				<input type="checkbox" name ="comedy" value = "comedy">Comedy<br>
-				<input type="checkbox" name ="drama" value = "drama">Drama<br>
-				<input type ="checkbox" name ="horror" value = "horror">Horror<br>
-				<input type="checkbox" name ="science fiction" value = "science fiction">Science Fiction<br>
-				<input type ="checkbox" name ="thriller" value = "thriller">Thriller<br>
-				<input type ="checkbox" name ="western" value = "western">Western<br>
+    <input type="date" name="date2" value="2030-01-01"/><br>
+<!-- Je n'ai pas mis tous les genres, mais j'aurai pu, mais de toutes manières ils comptent pas dans le formulaire, j'ai pas su gérer --> 
+  Genre : <br> 
+				<input type ="checkbox" name ="genres[]" value = "action" checked="checked">Action<br>
+				<input type="checkbox" name ="genres[]" value = "comedy">Comedy<br>
+				<input type="checkbox" name ="genres[]" value = "drama">Drama<br>
+				<input type ="checkbox" name ="genres[]" value = "horror">Horror<br>
+				<input type="checkbox" name ="genres[]" value = "science fiction">Science Fiction<br>
+				<input type ="checkbox" name ="genres[]" value = "thriller">Thriller<br>
+				<input type ="checkbox" name ="genres[]" value = "western">Western<br>
 
 	Country : 
 	<select name="choix">
@@ -58,10 +57,8 @@
     <option value="KR">SOUTH KOREA</option>
     <option value="JP">JAPAN</option>
 	</select><br>
-	Actor : 
-	<input type="text" name="actor">
-	Director : 
-	<input type="text" name="director">
+	Actor or Director : 
+	<input type="text" name="cast">
 
     <input type="submit" value="Valider" />
 

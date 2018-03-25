@@ -78,8 +78,8 @@ class Movie {
 
 
 
-	
-	
+
+
 	/*******************GETTERS COMPLEXES*******************/
 
 	/**
@@ -161,6 +161,42 @@ class Movie {
 			return $object;
 		 else
 			throw new Exception("ERROR");
+	}
+
+
+	public static function getMovie($title, $cast, $date1, $date2, $country){
+		 //Préparation de la requête SQL
+		$stmt = MyPDO::getInstance()->prepare("
+			SELECT m.id, m.title, m.releaseDate
+			FROM movie m, country, cast, director d, actor a, genre g, moviegenre mg
+			WHERE m.title LIKE :title
+				AND country.code = :country
+				AND m.idCountry = country.code
+				AND ((CONCAT(cast.firstname, ' ', cast.lastname) LIKE :cast
+					AND cast.id = d.idDirector
+					AND d.idMovie = m.id) OR (CONCAT(cast.firstname, ' ', cast.lastname) LIKE :cast
+					AND cast.id = a.idActor
+					AND a.idMovie = m.id))
+				AND DATE(m.releaseDate) BETWEEN DATE(:date1) AND DATE(:date2)
+				AND g.id = mg.idGenre
+				AND m.id = mg.idMovie
+			GROUP BY m.title
+			ORDER BY m.title
+		");
+		$stmt->bindValue(":title", "%".$title."%");
+		$stmt->bindValue(":country", $country);
+		$stmt->bindValue(":cast", "%".$cast."%");
+		$stmt->bindValue(":date1", $date1);
+		$stmt->bindValue(":date2", $date2);
+		$stmt->execute();
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Movie');
+		if (($objects = $stmt->fetchAll()) !== false) {
+			return $objects;
+		} else {
+			throw new Exception("ERROR");
+		}
+
+
 	}
 }
 	
