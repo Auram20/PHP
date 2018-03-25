@@ -1,5 +1,5 @@
 <?php
-require_once 'MyPDO.my_db.include.php'; //TO DO : à modifier
+require_once 'MyPDO.imac-movies.include.php'; //TO DO : à modifier
 
 /**
  * Classe Genre
@@ -27,6 +27,13 @@ class Genre {
 	 */
 	public static function createFromId($id){
 		// TO DO
+		 $stmt = MyPDO::getInstance()->prepare("SELECT * FROM Genre WHERE id=?");
+		 $stmt->execute(array($id));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Genre");
+		 if (($object = $stmt->fetch()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
 
 	/********************GETTERS SIMPLES********************/
@@ -37,6 +44,9 @@ class Genre {
 	 */
 	public function getId() {
 		// TO DO
+		return $this->id;
+
+		
 	}
 
 	/**
@@ -45,6 +55,7 @@ class Genre {
 	 */
 	public function getName() {
 		// TO DO
+		return $this->name;
 	}
 
 	/*******************GETTERS COMPLEXES*******************/
@@ -57,5 +68,14 @@ class Genre {
 	 */
 	public static function getAll() {
 		// TO DO
+		$stmt = MyPDO::getInstance()->prepare(" SELECT *  FROM Cast JOIN Director ON Cast.id = idDirector WHERE idMovie=? ORDER BY name ASC ");
+		 $stmt->execute(array($idMovie));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Cast");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
+
 }
+

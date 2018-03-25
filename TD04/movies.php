@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Casts List </title>
+	<title>Movie List </title>
 	<style>
 
    	@import url('https://fonts.googleapis.com/css?family=Quicksand');
@@ -24,7 +24,7 @@
 </head>
 <body>
 
-<p >CASTS LIST </p>
+<p >MOVIE LIST </p>
 <br/>
     
 <?php
@@ -32,11 +32,11 @@
 include "Cast.class.php";
 include "Movie.class.php";
   
-   	foreach (Cast::getAll() as $cast) {
+   	foreach (Movie::getAll() as $movie) {
 		echo "
 		<li>
-			<a href = \"cast.php?id={$cast->getId()}\">
-			{$cast->getFirstname()} {$cast->getLastname()}
+			<a href = \"movie.php?id={$movie->getId()}\">
+			{$movie->getTitle()}
 			</a>
 		</li>
 		"; 
@@ -49,4 +49,7 @@ include "Movie.class.php";
 
 
 </p>
+</body>
+</html>
+
 

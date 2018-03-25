@@ -31,17 +31,18 @@ class Cast {
 	 * @return Cast instance correspondant à $id
 	 * @throws Exception s'il n'existe pas cet $id dans a bdd */
 
+
 	public static function createFromId($id){
-		// TO DO
-		$stmt = MyPDO::getInstance()->prepare("SELECT * FROM 'Cast' WHERE id= :id");
-		$stmt->bindValue(':id',$id);
-		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS​,'Cast');
-		if (($object = $stmt->fetch()) !== false)
-			return $object;
-		else
-			throw new Exception("Error");
-	}
+        // TO DO
+        $stmt = MyPDO::getInstance()->prepare("SELECT * FROM Cast WHERE id= :id");
+        $stmt->bindValue(':id',$id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, "cast");
+        if (($object = $stmt->fetch()) !== false)
+            return $object;
+        else
+            throw new Exception("Error");
+    }
 
 	/********************GETTERS SIMPLES********************/
 	
@@ -127,6 +128,13 @@ class Cast {
 	 */
 	public static function getDirectorsFromMovieId($idMovie) {
 		// TO DO next : #04 Jointure Cast - Movie
+		 $stmt = MyPDO::getInstance()->prepare(" SELECT *  FROM Cast 	JOIN Director ON Cast.id = idDirector WHERE idMovie=? ORDER BY lastname, firstname ASC ");
+		 $stmt->execute(array($idMovie));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Cast");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
 
 	/**
@@ -137,6 +145,14 @@ class Cast {
 	 */
 	public static function getActorsFromMovieId($idMovie) {
 		// TO DO next : #04 Jointure Cast - Movie
+		 $stmt = MyPDO::getInstance()->prepare(" SELECT * FROM Cast JOIN Actor ON Cast.id = idActor WHERE idMovie=? ORDER BY lastname, firstname ASC ");
+		 $stmt->execute(array($idMovie));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Cast");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
+	
 
 }

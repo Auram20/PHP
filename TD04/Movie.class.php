@@ -31,6 +31,14 @@ class Movie {
 	 */
 	public static function createFromId($id){
 		// TO DO
+		$stmt = MyPDO::getInstance()->prepare("SELECT * FROM Movie WHERE id= :id");
+        $stmt->bindValue(':id',$id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, "movie");
+        if (($object = $stmt->fetch()) !== false)
+            return $object;
+        else
+            throw new Exception("Error");
 	}
 
 	/********************GETTERS SIMPLES********************/
@@ -40,7 +48,7 @@ class Movie {
 	 * @return int $id
 	 */
 	public function getId() {
-		// TO DO
+		return $this->id;
 	}
 
 	/**
@@ -48,7 +56,7 @@ class Movie {
 	 * @return string $title
 	 */
 	public function getTitle() {
-		// TO DO
+		return $this->title;
 	}
 
 	/**
@@ -56,7 +64,7 @@ class Movie {
 	 * @return string $releaseDate
 	 */
 	public function getReleaseDate() {
-		// TO DO
+		return $this->releaseDate;
 	}
 
 	/**
@@ -64,7 +72,7 @@ class Movie {
 	 * @return string $idCountry
 	 */
 	public function getIdCountry() {
-		// TO DO
+		return $this->idCountry;
 	}
 
 	/*******************GETTERS COMPLEXES*******************/
@@ -76,7 +84,14 @@ class Movie {
 	 * @return array<Movie> liste d'instances de Movie
 	 */
 	public static function getAll() {
-		// TO DO
+		$stmt = MyPDO::getInstance()->prepare("SELECT * FROM Movie ORDER BY releaseDate DESC, title ASC");
+		$stmt->execute();
+		$stmt->setFetchMode(PDO::FETCH_CLASS, "movie");
+		$array = array();
+		while (($object = $stmt->fetch()) !== false){
+			$array[] = $object;
+		}
+		return $array;
 	}
 
 	/**
@@ -88,6 +103,13 @@ class Movie {
 	 */
 	public static function getFromDirectorId($idDirector){
 		//TO DO next : #04 Jointure Cast - Movie
+		$stmt = MyPDO::getInstance()->prepare(" SELECT * FROM Movie JOIN Director ON Movie.id = idMovie	WHERE idDirector=? ORDER BY releaseDate DESC, title ASC");
+		 $stmt->execute(array($idDirector));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Movie");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
 
 	/**
@@ -99,6 +121,13 @@ class Movie {
 	 */
 	public static function getFromActorId($idActor){
 		// TO DO next : #04 Jointure Cast - Movie
+		$stmt = MyPDO::getInstance()->prepare(" SELECT * FROM Movie JOIN Actor ON Movie.id = idMovie WHERE idActor=? ORDER BY releaseDate DESC, title ASC");
+		 $stmt->execute(array($idActor));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Movie");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
 
 	/**
@@ -107,6 +136,16 @@ class Movie {
 	 * @return array<Genre> liste d'instances de Genre
 	 */
 	public function getGenres() {
-		// TO DO next : #05 Classe Genre
+		$stmt = MyPDO::getInstance()->prepare("
+		 	SELECT * FROM Genre JOIN MovieGenre ON idGenre = Genre.id WHERE idMovie = ? ORDER BY name");
+		 $stmt->execute(array($this->id));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Genre");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
 	}
 }
+	
+	
+
