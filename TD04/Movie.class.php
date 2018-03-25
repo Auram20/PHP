@@ -1,5 +1,6 @@
 <?php
-require_once 'MyPDO.my_db.include.php'; //TO DO : à modifier
+require_once 'MyPDO.imac-movies.include.php'; 
+
 
 /**
  * Classe Movie
