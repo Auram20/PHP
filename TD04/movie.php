@@ -60,13 +60,24 @@ include "Genre.class.php";
 	
 	if (count($genres =$movie->getGenres() ) > 0){
 		echo "<br><br>";
-		echo "Genre  : <br><br> ";
+		echo "Genre  : <br> ";
 		foreach ( $genres as $genre) {
 			echo $genre->getname()."<br>";
 		}
 	}
 
-	echo " <a href = \"movies.php\"> 	<br> Revenir à la page des Films.</a>"; 
+
+	if (count($countries=$movie->getCountries() ) > 0){
+		echo "<br><br>";
+		echo "Country  : <br> ";
+		foreach ( $countries as $country) {
+			echo $country->getname()."<br>";
+		}
+	}
+
+	echo " <a href = \"movies.php\"> 	<br> Revenir à la page des Films.</a> <br>"; 
+
+	echo " <a href = \"casts.php\"> 	Revenir à la page des Casts.</a>"; 
 
     ?> 
 

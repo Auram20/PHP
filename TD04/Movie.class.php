@@ -145,6 +145,18 @@ class Movie {
 		 else
 			throw new Exception("ERROR");
 	}
+
+
+	public function getCountries() {
+		$stmt = MyPDO::getInstance()->prepare("
+		 	SELECT * FROM Country JOIN Movie ON Country.code = idCountry WHERE id = ? ");
+		 $stmt->execute(array($this->id));
+		 $stmt->setFetchMode(PDO::FETCH_CLASS,"Genre");
+		 if (($object = $stmt->fetchAll()) !== false)
+			return $object;
+		 else
+			throw new Exception("ERROR");
+	}
 }
 	
 	

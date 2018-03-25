@@ -56,7 +56,9 @@ include "Movie.class.php";
 	}
 
 
-	echo " <a href = \"casts.php\"> 	Revenir à la page des Casts.</a>"; 
+	echo " <br><a href = \"casts.php\"> 	Revenir à la page des Casts.</a>"; 
+
+	echo " <a href = \"movies.php\"> 	<br> Revenir à la page des Films.</a>"; 
 
     ?> 
 
